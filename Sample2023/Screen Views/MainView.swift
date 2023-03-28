@@ -12,13 +12,19 @@ struct MainView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    ForEach(mainViewModel.imageModels.indices, id: \.self) { index in
-                        NavigationLink(value: mainViewModel.imageModels[index]) {
-                            ImageRowView(imageDataModel: mainViewModel.imageModels[index], showOnLeft: index.isMultiple(of: 2))
+            ZStack {
+                ScrollView {
+                    VStack {
+                        ForEach(mainViewModel.imageModels.indices, id: \.self) { index in
+                            NavigationLink(value: mainViewModel.imageModels[index]) {
+                                ImageRowView(imageDataModel: mainViewModel.imageModels[index], showOnLeft: index.isMultiple(of: 2))
+                            }
                         }
                     }
+                }
+
+                if mainViewModel.isLoading {
+                    ProgressView("Downloading…")
                 }
             }
             .navigationDestination(for: ImageDataModel.self) { imageDataModel in
@@ -43,8 +49,23 @@ struct MainView: View {
                 MainToolBar(mainViewModel: mainViewModel)
             }
         }
+        .alert(isPresented: $mainViewModel.showingAlert) {
+            alertViews()
+        }
         .task {
             mainViewModel.taskLoadEverything()
+        }
+    }
+
+    private func alertViews() -> Alert {
+        if mainViewModel.userSettings.giphyAPIKey.isEmpty {
+            return Alert(title: Text("API Key is missing"),
+                         message: Text("Go to Settings to enter an API Key"),
+                         dismissButton: .default(Text("OK ... I guess")))
+        } else {
+            return Alert(title: Text("Something went wrong!"),
+                         message: Text(mainViewModel.errorString),
+                         dismissButton: .default(Text("OK ... I guess")))
         }
     }
 

@@ -91,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63095C6929D28F2E00B9D8CE /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		63095C6A29D28F9800B9D8CE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6391D05A29C8031000C2093E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6391D05C29C931FC00C2093E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6391D05E29C99BE600C2093E /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
@@ -198,6 +200,8 @@
 		63CCE38F29C14B7000D96076 = {
 			isa = PBXGroup;
 			children = (
+				63095C6929D28F2E00B9D8CE /* LICENSE */,
+				63095C6A29D28F9800B9D8CE /* README.md */,
 				63CCE39A29C14B7000D96076 /* Sample2023 */,
 				63CCE3AB29C14B7300D96076 /* Sample2023Tests */,
 				63CCE39929C14B7000D96076 /* Products */,
