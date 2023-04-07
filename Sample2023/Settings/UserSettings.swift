@@ -33,22 +33,4 @@ struct UserSettings: Equatable, Codable {
                     maxNumberOfImages: defaultMaxNumberOfImages,
                     maxNumberOfLevels: defaultMaxNumberOfLevels)
     }
-
-    func getUserSettingsData() -> Data {
-        return (try? JSONEncoder().encode(self)) ?? Data()
-    }
-
-    static func getDefaultUserSettingsData() -> Data {
-        return Self.getDefaultUserSettings().getUserSettingsData()
-    }
-
-    static func decodeUserSettings(data: Data) -> UserSettings {
-        let result: Result<UserSettings, SampleError> = data.decodeData()
-
-        if case .success(let userSettings) = result {
-            return userSettings
-        }
-
-        return Self.getDefaultUserSettings()
-    }
 }

@@ -15,7 +15,7 @@ struct StarterView: View {
     init(dataSource: DataSource) {
         self.dataSource = dataSource
         _ = NetworkMonitor.shared.isConnected   // do this once to prime it?
-        mainViewModel = MainViewModel(dataSource: self.dataSource, userSettings: UserDefaultsManager.getUserSettings())
+        mainViewModel = MainViewModel(dataSource: self.dataSource, userSettings: UserDefaultsManager.userSettings)
     }
 
     var body: some View {

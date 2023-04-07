@@ -11,15 +11,6 @@ struct UserDefaultsManager {
     static let userSettingsKey = "usersettings"
     private static let appDefaults = UserDefaults.standard
 
-    static func getUserSettings(defaults: UserDefaults = Self.appDefaults) -> UserSettings {
-        if let userSettingsData = defaults.object(forKey: userSettingsKey) as? Data {
-            return UserSettings.decodeUserSettings(data: userSettingsData)
-        }
-
-        return UserSettings.getDefaultUserSettings()
-    }
-
-    static func saveUserSettings(userSettings: UserSettings, defaults: UserDefaults = Self.appDefaults) {
-        defaults.set(userSettings.getUserSettingsData(), forKey: userSettingsKey)
-    }
+    @UserDefaultsDataType<UserSettings>(domain: appDefaults, key: userSettingsKey, defaultValue: .getDefaultUserSettings())
+    static var userSettings
 }

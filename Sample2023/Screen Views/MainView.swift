@@ -112,7 +112,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var dataSource = MockDataSource()
-    static var mainViewModel = MainViewModel(dataSource: dataSource, userSettings: UserDefaultsManager.getUserSettings())
+    static var mainViewModel = MainViewModel(dataSource: dataSource, userSettings: UserDefaultsManager.userSettings)
 
     static var previews: some View {
         MainView(mainViewModel: mainViewModel)

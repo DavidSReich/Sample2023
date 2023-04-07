@@ -161,7 +161,7 @@ class MainViewModel: ObservableObject {
         guard !sheetCancelled else { return }
 
         if settingsChanged {
-            userSettings = UserDefaultsManager.getUserSettings()
+            userSettings = UserDefaultsManager.userSettings
             tagString = userSettings.initialTags
             clearDataSource()
             loadEverything()

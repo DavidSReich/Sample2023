@@ -19,8 +19,8 @@ final class UserDefaultsManagerTests: XCTestCase {
                                          maxNumberOfImages: maxNumberOfImages,
                                          maxNumberOfLevels: maxNumberOfLevels)
 
-        UserDefaultsManager.saveUserSettings(userSettings: firstSettings)
-        let secondSettings = UserDefaultsManager.getUserSettings()
+        UserDefaultsManager.userSettings = firstSettings
+        let secondSettings = UserDefaultsManager.userSettings
 
         XCTAssertEqual(firstSettings, secondSettings)
     }

@@ -12,13 +12,7 @@ struct SettingsView: View {
     @Binding var sheetCancelled: Bool
     @Binding var settingsChanged: Bool
 
-    // yeah - this is redundant, since UserDefaultsManager can read and write to UserDefaults
-    // but this illustrates using @AppStorage.
-    @AppStorage(UserDefaultsManager.userSettingsKey) var userSettingsData: Data =
-    UserDefaultsManager.getUserSettings().getUserSettingsData()
-
-    @State var userSettings = UserDefaultsManager.getUserSettings()
-    @State var originalUserSettings = UserDefaultsManager.getUserSettings()
+    @State var userSettings = UserDefaultsManager.userSettings
 
     var body: some View {
         NavigationView {
@@ -74,12 +68,12 @@ struct SettingsView: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     HStack {
                         Button("Reset") {
-                            userSettings = originalUserSettings
+                            userSettings = UserDefaultsManager.userSettings
                         }
 
                         Button("Apply") {
-                            if originalUserSettings != userSettings {
-                                userSettingsData = userSettings.getUserSettingsData()
+                            if UserDefaultsManager.userSettings != userSettings {
+                                UserDefaultsManager.userSettings = userSettings
                                 settingsChanged = true
                             }
                             dismiss()
