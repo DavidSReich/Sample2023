@@ -22,12 +22,14 @@ class NetworkMonitor {
 
             // Monitor runs on a background thread so we need to publish
             // on the main thread
-            DispatchQueue.main.async {
-                self.isConnected = path.status == .satisfied
+            Task {
+                await MainActor.run {
+                    self.isConnected = path.status == .satisfied
 
-                // todo: testing needed to see if we should handle this
-                if path.status == .requiresConnection {
-                    print(">>> REQUIRES CONNECTION")
+                    // todo: testing needed to see if we should handle this
+                    if path.status == .requiresConnection {
+                        print(">>> REQUIRES CONNECTION")
+                    }
                 }
             }
         }

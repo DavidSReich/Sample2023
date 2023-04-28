@@ -34,7 +34,7 @@ The app uses a variation on MVVM and is "inspired" by SOLID principles.  (It doe
 * `MainViewModel` is an `ObservableObject` injected into `MainView`.
 * `Result<T, SampleError>` is used for networking results.
 
-## Extensions, etc.  
+## Extensions, "modern" code "improvements", etc.  
 * Generic `Data` extensions for `Result<>`  
  * `func decodeData<T: Decodable>() -> Result<T, SampleError>`  
 
@@ -42,6 +42,8 @@ The app uses a variation on MVVM and is "inspired" by SOLID principles.  (It doe
  * `urlResponse.validate(...) -> SampleError?`  
 
 * `@propertyWrappers` used to refactor storing `UserSettings` in `UserDefaults`.  
+
+* Replace `DispatchQueue.main.async` with `await MainActor.run`.
 
 ## Networking  
 Networking uses `try await` and uses `Result<>` for most networking objects.  

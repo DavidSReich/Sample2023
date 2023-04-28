@@ -17,11 +17,8 @@ class DataSource {
         GiphyModel.getGiphyModel(urlString: urlString, mimeType: mimeType) { result in
             switch result {
             case .success(let giphyModel):
-                // we need to publish on the main thread
-                DispatchQueue.main.async {
-                    self.resultsStack.pushResults(title: tagString, values: giphyModel.data)
-                    completion(nil)
-                }
+                self.resultsStack.pushResults(title: tagString, values: giphyModel.data)
+                completion(nil)
             case .failure(let error):
                 if case .responseNot200(let responseCode, let data) = error {
                     if [401, 403].contains(responseCode), let data = data {
@@ -84,9 +81,7 @@ class DataSource {
 
 class MockDataSource: DataSource {
     override func getData(tagString: String, urlString: String, mimeType: String, completion: @escaping (SampleError?) -> Void) {
-        DispatchQueue.main.async {
-            self.resultsStack.pushResults(title: tagString, values: GiphyModel.mockGiphyModel().data)
-            completion(nil)
-        }
+        self.resultsStack.pushResults(title: tagString, values: GiphyModel.mockGiphyModel().data)
+        completion(nil)
     }
 }

@@ -113,8 +113,10 @@ class MainViewModel: ObservableObject {
         dataSource.getData(tagString: imageTags,
                            urlString: urlString,
                            mimeType: "application/json") { refError in
-            DispatchQueue.main.async {
-                self.updateDataSourceDependencies(refError: refError)
+            Task {
+                await MainActor.run {
+                    self.updateDataSourceDependencies(refError: refError)
+                }
             }
         }
     }
@@ -143,9 +145,7 @@ class MainViewModel: ObservableObject {
         // reset
         imageModels.removeAll()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.populateDataSource(imageTags: self.tagString)
-        }
+        self.populateDataSource(imageTags: self.tagString)
     }
 
     func goBack(toTop: Bool) {

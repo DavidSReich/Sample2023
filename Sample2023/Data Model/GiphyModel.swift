@@ -9,12 +9,11 @@ struct GiphyModel: Decodable {
     var meta: MetaModel
     var data: [ImageDataModel]
 
-    static func getGiphyModel(// tagString: String,
-                              urlString: String,
+    static func getGiphyModel(urlString: String,
                               mimeType: String,
                               giphyResult: @escaping((Result<GiphyModel, SampleError>) -> Void)) {
         Task {
-            let result = try await Networking.loadData(urlString: urlString) as Result<GiphyModel, SampleError>
+            let result = try await Networking.loadData(urlString: urlString, mimeType: mimeType) as Result<GiphyModel, SampleError>
             giphyResult(result)
         }
     }
