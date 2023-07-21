@@ -42,9 +42,9 @@ class UserDefaultsDataType<Type: Codable> {
     init(domain: UserDefaults, key: String, defaultValue: Type) {
         self.defaultValue = defaultValue
 
-        self.$userSettingsData.domain = domain
-        self.$userSettingsData.key = key
-        self.$userSettingsData.defaultValue = (try? JSONEncoder().encode(defaultValue)) ?? Data()
+        $userSettingsData.domain = domain
+        $userSettingsData.key = key
+        $userSettingsData.defaultValue = (try? JSONEncoder().encode(defaultValue)) ?? Data()
     }
 
     var wrappedValue: Type {

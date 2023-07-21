@@ -12,7 +12,7 @@ struct GifView: UIViewRepresentable {
     var url: URL
 
     func makeUIView(context: Context) -> UIImageView {
-        let imageView = UIImageView(gifURL: self.url)
+        let imageView = UIImageView(gifURL: url)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -24,7 +24,7 @@ struct GifView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIImageView, context: Context) {
-        uiView.setGifFromURL(self.url)
+        uiView.setGifFromURL(url)
     }
 }
 

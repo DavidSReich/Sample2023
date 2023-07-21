@@ -143,7 +143,7 @@ import Observation
         // reset
         imageModels.removeAll()
 
-        self.populateDataSource(imageTags: self.tagString)
+        populateDataSource(imageTags: tagString)
     }
 
     func goBack(toTop: Bool) {

@@ -76,7 +76,7 @@ class DataSource {
 
 class MockDataSource: DataSource {
     override func getData(tagString: String, urlString: String, mimeType: String, completion: @escaping (SampleError?) -> Void) {
-        self.resultsStack.pushResults(title: tagString, values: GiphyModel.mockGiphyModel().data)
+        resultsStack.pushResults(title: tagString, values: GiphyModel.mockGiphyModel().data)
         completion(nil)
     }
 }
