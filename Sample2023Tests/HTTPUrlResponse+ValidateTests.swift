@@ -71,7 +71,7 @@ final class HTTPUrlResponse_ValidateTests: XCTestCase {
             return
         }
 
-        if case .responseNot200(let responseCode, _) = error {
+        if case .responseNot200(let responseCode) = error {
             if responseCode == 401 {
                 let result: Result<MessageModel, SampleError> = BaseTestUtilities.getMessageModelData().decodeData()
 
@@ -98,7 +98,7 @@ final class HTTPUrlResponse_ValidateTests: XCTestCase {
             return
         }
 
-        if case .responseNot200(let responseCode, _) = error {
+        if case .responseNot200(let responseCode) = error {
             if responseCode == 403 {
                 let result: Result<MessageModel, SampleError> = BaseTestUtilities.getMessageModelData().decodeData()
 
@@ -125,7 +125,7 @@ final class HTTPUrlResponse_ValidateTests: XCTestCase {
             return
         }
 
-        if case SampleError.responseNot200(responseCode: let responseCode, data: _) = error {
+        if case SampleError.responseNot200(responseCode: let responseCode) = error {
             XCTAssertEqual(responseCode, 500)
             // supposed to fail at this point because a we set a responseCode == 500 here.
         } else {

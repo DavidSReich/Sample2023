@@ -50,31 +50,43 @@ struct LaunchScreenView: View {
     }
 
     private func goAway() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        Task {
+            try await Task.sleep(for: .seconds(3))
             isPresented = false
         }
     }
 }
 
-struct LaunchScreenView_Previews: PreviewProvider {
-    @State static var showLaunch = true
+#Preview("LaunchScreenView SE") {
+    @State var showLaunch = true
 
-    static var previews: some View {
-        Group {
-            LaunchScreenView(isPresented: $showLaunch)
-                .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-                .previewDisplayName("iPhone SE")
-            LaunchScreenView(isPresented: $showLaunch)
-                .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
-                .previewDisplayName("iPhone 11 Pro Max (13.4)")
-            LaunchScreenView(isPresented: $showLaunch)
-                .previewLayout(.fixed(width: 1136, height: 640))
-                .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-                .previewDisplayName("iPhone SE")
-            LaunchScreenView(isPresented: $showLaunch)
-                .previewLayout(.fixed(width: 2688, height: 1242))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
-                .previewDisplayName("iPhone 11 Pro Max (13.4)")
-        }
-    }
+    return LaunchScreenView(isPresented: $showLaunch)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("iPhone SE")
+}
+
+#Preview("LaunchScreenView 11 Pro Max") {
+    @State var showLaunch = true
+
+    return LaunchScreenView(isPresented: $showLaunch)
+        .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
+        .previewDisplayName("iPhone 11 Pro Max (13.4)")
+}
+
+#Preview("LaunchScreenView SE fixed layout") {
+    @State var showLaunch = true
+
+    return LaunchScreenView(isPresented: $showLaunch)
+        .previewLayout(.fixed(width: 1136, height: 640))
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("iPhone SE")
+}
+
+#Preview("LaunchScreenView 11 Pro Max fixed layout") {
+    @State var showLaunch = true
+
+    return LaunchScreenView(isPresented: $showLaunch)
+        .previewLayout(.fixed(width: 2688, height: 1242))
+        .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
+        .previewDisplayName("iPhone 11 Pro Max (13.4)")
 }

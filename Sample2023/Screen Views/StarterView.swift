@@ -10,7 +10,7 @@ import SwiftUI
 struct StarterView: View {
     var dataSource: DataSource
     @State private var showLaunchScreen = true
-    @ObservedObject var mainViewModel: MainViewModel
+    var mainViewModel: MainViewModel
 
     init(dataSource: DataSource) {
         self.dataSource = dataSource
@@ -29,10 +29,6 @@ struct StarterView: View {
     }
 }
 
-struct StarterView_Previews: PreviewProvider {
-    static var dataSource = MockDataSource()
-
-    static var previews: some View {
-        StarterView(dataSource: dataSource)
-    }
+#Preview("StartView") {
+    StarterView(dataSource: MockDataSource())
 }

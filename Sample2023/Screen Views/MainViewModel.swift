@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import Observation
 
-class MainViewModel: ObservableObject {
-    @Published var imageModels: [ImageDataModel] = []
-    @Published var isLoading = false
-    @Published var showingAlert = false
-    @Published var settingsChanged = false
+@Observable class MainViewModel {
+    var imageModels: [ImageDataModel] = []
+    var isLoading = false
+    var showingAlert = false
+    var settingsChanged = false
 
-    @Published var nextImageTags = ""
+    var nextImageTags = ""
 
     enum SheetType: String, Identifiable {
         case selector
@@ -22,23 +23,28 @@ class MainViewModel: ObservableObject {
         var id: String { rawValue }
     }
 
-    @Published var sheetType: SheetType?
-    @Published var sheetCancelled = false
+    // @Observable requires this to be explictly set to nil, but that conflicts with SwiftLint
+    // swiftlint: disable redundant_optional_initialization
+    var sheetType: SheetType? = nil
+    // swiftlint: enable redundant_optional_initialization
+    var sheetCancelled = false
 
-    @Published var selectedImageModel: ImageDataModel?
-    @Published var showImage = false
+    var showImage = false
 
-    private var alreadyLoaded = false
-    private var lastReferenceError: SampleError?
+    @ObservationIgnored private var alreadyLoaded = false
+    // @Observable requires this to be explictly set to nil, but that conflicts with SwiftLint
+    // swiftlint: disable redundant_optional_initialization
+    @ObservationIgnored private var lastReferenceError: SampleError? = nil
+    // swiftlint: enable redundant_optional_initialization
 
     private let settingsButtonText = "Settings"
     private let pickTagsButtonText = "Pick Tags"
     private let startButtonText = "Start"
 
-    private var dataSource: DataSource
-    var userSettings: UserSettings
+    @ObservationIgnored private var dataSource: DataSource
+    @ObservationIgnored var userSettings: UserSettings
 
-    private var imageTags: String
+    @ObservationIgnored private var imageTags: String
 
     init(dataSource: DataSource, userSettings: UserSettings) {
         self.dataSource = dataSource
@@ -113,11 +119,7 @@ class MainViewModel: ObservableObject {
         dataSource.getData(tagString: imageTags,
                            urlString: urlString,
                            mimeType: "application/json") { refError in
-            Task {
-                await MainActor.run {
-                    self.updateDataSourceDependencies(refError: refError)
-                }
-            }
+            self.updateDataSourceDependencies(refError: refError)
         }
     }
 
@@ -126,10 +128,6 @@ class MainViewModel: ObservableObject {
         lastReferenceError = refError
         isLoading = false
         showingAlert = refError != nil
-        if !imageModels.isEmpty {
-            selectedImageModel = imageModels[0]
-        }
-
         mainViewLevel = max(dataSource.resultsDepth - 1, 0)
         isTopMainLevel = mainViewLevel == 0
     }

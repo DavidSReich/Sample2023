@@ -50,10 +50,8 @@ struct ImageView: View {
     }
 }
 
-struct ImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            ImageView(imageDataModel: BaseTestUtilities.getFishImageModel()!)
-        }
+#Preview("ImageView") {
+    NavigationStack {
+        ImageView(imageDataModel: BaseTestUtilities.getFishImageModel()!)
     }
 }

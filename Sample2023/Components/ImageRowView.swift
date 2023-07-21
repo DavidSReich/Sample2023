@@ -38,14 +38,12 @@ struct ImageRowView: View {
     }
 }
 
-struct ImageRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 0) {
-            ImageRowView(imageDataModel: BaseTestUtilities.getFishImageModel()!, showOnLeft: true)
-                .background(.green)
-            ImageRowView(imageDataModel: BaseTestUtilities.getFishImageModel()!, showOnLeft: false)
-                .background(.red)
-        }
-        .padding(.horizontal, 16)
+#Preview("ImageRowView") {
+    VStack(spacing: 0) {
+        ImageRowView(imageDataModel: BaseTestUtilities.getFishImageModel()!, showOnLeft: true)
+            .background(.green)
+        ImageRowView(imageDataModel: BaseTestUtilities.getFishImageModel()!, showOnLeft: false)
+            .background(.red)
     }
+    .padding(.horizontal, 16)
 }

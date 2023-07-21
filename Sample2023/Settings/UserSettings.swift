@@ -20,7 +20,7 @@ struct UserSettings: Equatable, Codable {
     private static let defaultMaxNumberOfLevels = 5
 
     func getFullUrlString(tags: String) -> String {
-        return Self.urlTemplate
+        Self.urlTemplate
             .replacingOccurrences(of: "{API_KEY}", with: giphyAPIKey)
             .replacingOccurrences(of: "{MAX_IMAGES}", with: "\(maxNumberOfImages)")
             .replacingOccurrences(of: "{TAGS}", with: tags)
@@ -28,9 +28,9 @@ struct UserSettings: Equatable, Codable {
 
     static func getDefaultUserSettings() -> UserSettings {
         // there's no default API key
-        return Self(initialTags: defaultInitialTags,
-                    giphyAPIKey: "your-API-key-goes-here",
-                    maxNumberOfImages: defaultMaxNumberOfImages,
-                    maxNumberOfLevels: defaultMaxNumberOfLevels)
+        Self(initialTags: defaultInitialTags,
+             giphyAPIKey: "your-API-key-goes-here",
+             maxNumberOfImages: defaultMaxNumberOfImages,
+             maxNumberOfLevels: defaultMaxNumberOfLevels)
     }
 }

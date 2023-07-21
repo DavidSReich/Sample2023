@@ -61,12 +61,11 @@ struct SelectorView: View {
     }
 }
 
-struct SelectorView_Previews: PreviewProvider {
-    @State static var sheetCancelled = false
-    @State static var selectedStrings = ""
-    static var previews: some View {
-        SelectorView(sheetCancelled: $sheetCancelled, selectedStrings: $selectedStrings, allStrings: [
-            "aaaa", "bbb", "cc", "d"
-        ])
-    }
+#Preview("") {
+    @State var sheetCancelled = false
+    @State var selectedStrings = ""
+
+    return SelectorView(sheetCancelled: $sheetCancelled, selectedStrings: $selectedStrings, allStrings: [
+        "aaaa", "bbb", "cc", "d"
+    ])
 }

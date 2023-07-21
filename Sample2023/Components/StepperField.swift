@@ -26,9 +26,7 @@ struct StepperField: View {
     }
 }
 
-struct StepperField_Previews: PreviewProvider {
-    @State static var stepping = 7
-    static var previews: some View {
-        StepperField(title: "", value: $stepping, range: 5...30, accessibilityLabel: "stepper")
-    }
+#Preview("StepperField") {
+    @State var stepping = 7
+    return StepperField(title: "", value: $stepping, range: 5...30, accessibilityLabel: "stepper")
 }

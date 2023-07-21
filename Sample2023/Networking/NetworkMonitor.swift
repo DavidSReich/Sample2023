@@ -6,8 +6,9 @@
 //
 
 import Network
+import Observation
 
-class NetworkMonitor {
+@Observable class NetworkMonitor {
     static let shared = NetworkMonitor()
 
     private let monitor = NWPathMonitor()
@@ -15,22 +16,17 @@ class NetworkMonitor {
 
     var isConnected = false
 
-    // Prevents this to be created anywhere else.  Forces use of "shared"
+    // "private" prevents this from being created anywhere else.  Forces use of "shared"
     private init() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            guard let self = self else { return }
+        monitor.pathUpdateHandler = { path in
+            Task { @MainActor in
+                self.isConnected = path.status == .satisfied
+                print(">>>> isConnected: \(self.isConnected)")
+            }
 
-            // Monitor runs on a background thread so we need to publish
-            // on the main thread
-            Task {
-                await MainActor.run {
-                    self.isConnected = path.status == .satisfied
-
-                    // todo: testing needed to see if we should handle this
-                    if path.status == .requiresConnection {
-                        print(">>> REQUIRES CONNECTION")
-                    }
-                }
+            // todo: testing needed to see if we should handle this
+            if path.status == .requiresConnection {
+                print(">>> REQUIRES CONNECTION")
             }
         }
 

@@ -17,7 +17,7 @@ public enum SampleError: Error, Equatable {
     case notConnected
     case noResponse
     case notHttpURLResponse
-    case responseNot200(responseCode: Int, data: Data? = nil)
+    case responseNot200(responseCode: Int)
     case apiNotHappy(message: String)
     case wrongMimeType(targeMimeType: String, receivedMimeType: String)
     case noData
@@ -42,7 +42,7 @@ public enum SampleError: Error, Equatable {
             return "Query failed to return a response code"
         case .notHttpURLResponse:
             return "Query response was not a Http URL response"
-        case .responseNot200(let responseCode, _):
+        case .responseNot200(let responseCode):
             return "Query failed with response code: \(responseCode)"
         case .apiNotHappy(let message):
             return message

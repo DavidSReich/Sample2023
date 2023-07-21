@@ -87,11 +87,9 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    @State static var sheetCancelled = false
-    @State static var settingsChanged = false
+#Preview("SettingsView") {
+    @State var sheetCancelled = false
+    @State var settingsChanged = false
 
-    static var previews: some View {
-        SettingsView(sheetCancelled: $sheetCancelled, settingsChanged: $settingsChanged)
-    }
+    return SettingsView(sheetCancelled: $sheetCancelled, settingsChanged: $settingsChanged)
 }

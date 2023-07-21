@@ -20,15 +20,10 @@ class DataSource {
                 self.resultsStack.pushResults(title: tagString, values: giphyModel.data)
                 completion(nil)
             case .failure(let error):
-                if case .responseNot200(let responseCode, let data) = error {
-                    if [401, 403].contains(responseCode), let data = data {
-                        let result: Result<MessageModel, SampleError> = data.decodeData()
-
-                        if case .success(let messageModel) = result {
-                            let message = responseCode == 403 ? "Your API Key might be incorrect.  Go to Settings to check it." : messageModel.message
-                            completion(.apiNotHappy(message: message))
-                            return
-                        }
+                if case .responseNot200(let responseCode) = error {
+                    if [401, 403].contains(responseCode) {
+                        completion(.apiNotHappy(message: "Your API Key might be incorrect.  Go to Settings to check it."))
+                        return
                     }
                 }
 
@@ -47,11 +42,11 @@ class DataSource {
     }
 
     func popResults() -> [ImageDataModel]? {
-        return resultsStack.popResults()?.values
+        resultsStack.popResults()?.values
     }
 
     func popToTop() -> [ImageDataModel]? {
-        return resultsStack.popToTop()?.values
+        resultsStack.popToTop()?.values
     }
 
     var currentResults: [ImageDataModel]? {
@@ -59,11 +54,11 @@ class DataSource {
     }
 
     var penultimateTitle: String {
-        return resultsStack.getPenultimate()?.title ?? ""
+        resultsStack.getPenultimate()?.title ?? ""
     }
 
     var title: String {
-        return resultsStack.getLast()?.title ?? ""
+        resultsStack.getLast()?.title ?? ""
     }
 
     var tagsArray: [String] {

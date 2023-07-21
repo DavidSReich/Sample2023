@@ -25,7 +25,7 @@ final class SampleErrorTests: XCTestCase {
                        "Query failed to return a response code")
         XCTAssertEqual(SampleError.notHttpURLResponse.errorDescription,
                        "Query response was not a Http URL response")
-        XCTAssertEqual(SampleError.responseNot200(responseCode: 500, data: nil).errorDescription,
+        XCTAssertEqual(SampleError.responseNot200(responseCode: 500).errorDescription,
                        "Query failed with response code: 500")
         XCTAssertEqual(SampleError.wrongMimeType(targeMimeType: "Good Mime", receivedMimeType: "Bad Mime").errorDescription,
                        "Response was not Good Mime.  Was: Bad Mime")

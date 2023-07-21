@@ -28,14 +28,12 @@ struct GifView: UIViewRepresentable {
     }
 }
 
-struct GifView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            GifView(url: Bundle.main.url(forResource: "fish", withExtension: "gif")!)
-                .layoutPriority(-1)
-            GifView(url: Bundle.main.url(forResource: "fish", withExtension: "gif")!)
-                .layoutPriority(-1)
-        }
-        .frame(width: 200, height: 300)
+#Preview("GifView") {
+    VStack {
+        GifView(url: Bundle.main.url(forResource: "fish", withExtension: "gif")!)
+            .layoutPriority(-1)
+        GifView(url: Bundle.main.url(forResource: "fish", withExtension: "gif")!)
+            .layoutPriority(-1)
     }
+    .frame(width: 200, height: 300)
 }

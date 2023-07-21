@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var mainViewModel: MainViewModel
+    @Bindable var mainViewModel: MainViewModel
 
     var body: some View {
         NavigationStack {
@@ -59,26 +59,25 @@ struct MainView: View {
 
     private func alertViews() -> Alert {
         if mainViewModel.userSettings.giphyAPIKey.isEmpty {
-            return Alert(title: Text("API Key is missing"),
-                         message: Text("Go to Settings to enter an API Key"),
-                         dismissButton: .default(Text("OK ... I guess")))
+            Alert(title: Text("API Key is missing"),
+                  message: Text("Go to Settings to enter an API Key"),
+                  dismissButton: .default(Text("OK ... I guess")))
         } else {
-            return Alert(title: Text("Something went wrong!"),
-                         message: Text(mainViewModel.errorString),
-                         dismissButton: .default(Text("OK ... I guess")))
+            Alert(title: Text("Something went wrong!"),
+                  message: Text(mainViewModel.errorString),
+                  dismissButton: .default(Text("OK ... I guess")))
         }
     }
 
     struct MainToolBar: ToolbarContent {
-        @ObservedObject var mainViewModel: MainViewModel
+        var mainViewModel: MainViewModel
 
         var body: some ToolbarContent {
             ToolbarItem(placement: .principal) {
                 Text(mainViewModel.title)
             }
-            // this is Xcode's least ugly Button formatting that doesn't trigger any SwiftLint warnings!
             ToolbarItem(placement: .cancellationAction) {
-                Button(action: {
+                Button {
                     if mainViewModel.isBackButtonSettings {
                         mainViewModel.settingsChanged = false
                         mainViewModel.sheetCancelled = false
@@ -86,14 +85,13 @@ struct MainView: View {
                     } else {
                         mainViewModel.goBack(toTop: false)
                     }
-                },
-                       label: {
+                } label: {
                     // it appears that some of these settings are carried to the navigation title !!!
                     Text(mainViewModel.backButtonText).frame(width: UIScreen.main.bounds.width * 0.25).lineLimit(1)
-                })
+                }
             }
             ToolbarItem(placement: .primaryAction) {
-                Button(action: {
+                Button {
                     if mainViewModel.isRightButtonPickTags {
                         mainViewModel.nextImageTags = ""
                         mainViewModel.sheetCancelled = false
@@ -101,20 +99,14 @@ struct MainView: View {
                     } else {
                         mainViewModel.goBack(toTop: true)
                     }
-                },
-                       label: {
+                } label: {
                     Text(mainViewModel.rightButtonText)
-                })
+                }
             }
         }
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var dataSource = MockDataSource()
-    static var mainViewModel = MainViewModel(dataSource: dataSource, userSettings: UserDefaultsManager.userSettings)
-
-    static var previews: some View {
-        MainView(mainViewModel: mainViewModel)
-    }
+#Preview("MainView") {
+    MainView(mainViewModel: MainViewModel(dataSource: MockDataSource(), userSettings: UserDefaultsManager.userSettings))
 }

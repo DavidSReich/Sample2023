@@ -20,14 +20,12 @@ class Networking {
             return .failure(SampleError.notConnected)
         }
 
+        print(">>>>> url: \(url)")
         let (data, response) = try await URLSession.shared.data(from: url)
 
         if let networkingError = response.validate(mimeType: mimeType) {
-            if case .responseNot200(let responseCode, _) = networkingError {
-                return .failure(.responseNot200(responseCode: responseCode, data: data))
-            }
-
             data.prettyPrintData()
+
             return .failure(networkingError)
         }
 
