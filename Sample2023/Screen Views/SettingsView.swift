@@ -12,7 +12,7 @@ struct SettingsView: View {
     @Binding var sheetCancelled: Bool
     @Binding var settingsChanged: Bool
 
-    @State var userSettings = UserDefaultsManager.userSettings
+    @State private var userSettings = UserDefaultsManager.userSettings
 
     var body: some View {
         NavigationView {

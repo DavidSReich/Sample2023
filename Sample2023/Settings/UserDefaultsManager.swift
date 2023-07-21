@@ -8,7 +8,7 @@
 import Foundation
 
 struct UserDefaultsManager {
-    static let userSettingsKey = "usersettings"
+    private static let userSettingsKey = "usersettings"
     private static let appDefaults = UserDefaults.standard
 
     @UserDefaultsDataType<UserSettings>(domain: appDefaults, key: userSettingsKey, defaultValue: .getDefaultUserSettings())

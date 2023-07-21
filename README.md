@@ -46,6 +46,8 @@ The app uses a variation on MVVM and is "inspired" by SOLID principles.  (It doe
 * Replace `DispatchQueue.main.async {` with `Task { @MainActor in`.  
 * Replace `DispatchQueue.main.asyncAfter {` with `Task { try await Task.sleep`.  
 * Replace `PreviewProvider` with `#Preview`.  
+* Remove unnecessary `self`s.  
+* Make everything possible `private`.  
 
 ## Networking  
 Networking uses `try await` and uses `Result<>` for most networking objects.  

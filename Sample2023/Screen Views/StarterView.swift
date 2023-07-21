@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct StarterView: View {
-    var dataSource: DataSource
+    private var dataSource: DataSource
     @State private var showLaunchScreen = true
-    var mainViewModel: MainViewModel
+    private var mainViewModel: MainViewModel
 
     init(dataSource: DataSource) {
         self.dataSource = dataSource

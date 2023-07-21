@@ -49,9 +49,10 @@ struct SelectorView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    func allSelectedStrings() -> String {
+    private func allSelectedStrings() -> String {
         var selectedStrings = ""
 
+        // this could probably be done more cleverly using .map
         for selectedString in selectKeeper {
             let prefix = selectedStrings.isEmpty ? "" : "+"
             selectedStrings.append(prefix + selectedString)

@@ -58,7 +58,7 @@ struct MainView: View {
     }
 
     private func alertViews() -> Alert {
-        if mainViewModel.userSettings.giphyAPIKey.isEmpty {
+        if mainViewModel.giphyAPIKeyIsEmpty {
             Alert(title: Text("API Key is missing"),
                   message: Text("Go to Settings to enter an API Key"),
                   dismissButton: .default(Text("OK ... I guess")))
@@ -69,7 +69,7 @@ struct MainView: View {
         }
     }
 
-    struct MainToolBar: ToolbarContent {
+    private struct MainToolBar: ToolbarContent {
         var mainViewModel: MainViewModel
 
         var body: some ToolbarContent {

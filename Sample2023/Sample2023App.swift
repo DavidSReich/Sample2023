@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Sample2023App: App {
-    var dataSource = DataSource()
+    private var dataSource = DataSource()
 
     var body: some Scene {
         WindowGroup {

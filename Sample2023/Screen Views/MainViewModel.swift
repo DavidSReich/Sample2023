@@ -42,7 +42,7 @@ import Observation
     private let startButtonText = "Start"
 
     @ObservationIgnored private var dataSource: DataSource
-    @ObservationIgnored var userSettings: UserSettings
+    @ObservationIgnored private var userSettings: UserSettings
 
     @ObservationIgnored private var imageTags: String
 
@@ -50,6 +50,10 @@ import Observation
         self.dataSource = dataSource
         self.userSettings = userSettings
         imageTags = userSettings.initialTags
+    }
+
+    var giphyAPIKeyIsEmpty: Bool {
+        userSettings.giphyAPIKey.isEmpty
     }
 
     var tagString: String {

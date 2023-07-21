@@ -11,7 +11,7 @@ struct ImageRowView: View {
     var imageDataModel: ImageDataModel
     var showOnLeft: Bool
 
-    var imageSize: CGSize {
+    private var imageSize: CGSize {
         let minDimension = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
         return imageDataModel.scaledSize(width: minDimension * 0.5)
     }
