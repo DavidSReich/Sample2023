@@ -33,7 +33,7 @@ The app uses a variation on MVVM and is "inspired" by SOLID principles.  (It doe
 * `UIViewRepresentable` wrapper around **SwiftyGif's** extension to `UIImageView`.  
 
 ## "Dependency injection", etc.  
-* `MainViewModel` is an `ObservableObject` injected into `MainView`.
+* `MainViewModel` is an `@Observable` injected into `MainView`.
 * `Result<T, SampleError>` is used for networking results.
 
 ## Extensions, "modern" code "improvements", etc.  
