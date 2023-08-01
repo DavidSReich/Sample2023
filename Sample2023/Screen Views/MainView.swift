@@ -30,12 +30,12 @@ struct MainView: View {
             .navigationDestination(for: ImageDataModel.self) { imageDataModel in
                 ImageView(imageDataModel: imageDataModel)
             }
-            // Xcode insists on indenting like this ... it's horrible
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                MainToolBar(mainViewModel: mainViewModel)
+            }
             .sheet(item: $mainViewModel.sheetType,
-                   onDismiss: {
-                mainViewModel.dismissSheet()
-            },
-                   content: { sheetType in
+                   onDismiss: mainViewModel.dismissSheet) { sheetType in
                 if sheetType == .settings {
                     SettingsView(sheetCancelled: $mainViewModel.sheetCancelled, settingsChanged: $mainViewModel.settingsChanged)
                 } else {
@@ -43,10 +43,6 @@ struct MainView: View {
                                  selectedStrings: $mainViewModel.nextImageTags,
                                  allStrings: mainViewModel.tagsArray)
                 }
-            })
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                MainToolBar(mainViewModel: mainViewModel)
             }
         }
         .alert(isPresented: $mainViewModel.showingAlert) {
