@@ -23,19 +23,13 @@ import Observation
         var id: String { rawValue }
     }
 
-    // @Observable requires this to be explictly set to nil, but that conflicts with SwiftLint
-    // swiftlint: disable redundant_optional_initialization
-    var sheetType: SheetType? = nil
-    // swiftlint: enable redundant_optional_initialization
+    var sheetType: SheetType?
     var sheetCancelled = false
 
     var showImage = false
 
     @ObservationIgnored private var alreadyLoaded = false
-    // @Observable requires this to be explictly set to nil, but that conflicts with SwiftLint
-    // swiftlint: disable redundant_optional_initialization
-    @ObservationIgnored private var lastReferenceError: SampleError? = nil
-    // swiftlint: enable redundant_optional_initialization
+    @ObservationIgnored private var lastReferenceError: SampleError?
 
     private let settingsButtonText = "Settings"
     private let pickTagsButtonText = "Pick Tags"
@@ -116,9 +110,11 @@ import Observation
         self.imageTags = imageTags
         let urlString = userSettings.getFullUrlString(tags: imageTags)
 
-        showingAlert = false
-        isLoading = true
         lastReferenceError = nil
+        Task { @MainActor in
+            showingAlert = false
+            isLoading = true
+        }
 
         dataSource.getData(tagString: imageTags,
                            urlString: urlString,
@@ -128,10 +124,12 @@ import Observation
     }
 
     private func updateDataSourceDependencies(refError: SampleError?) {
-        imageModels = dataSource.currentResults ?? []
         lastReferenceError = refError
-        isLoading = false
-        showingAlert = refError != nil
+        Task { @MainActor in
+            imageModels = dataSource.currentResults ?? []
+            isLoading = false
+            showingAlert = refError != nil
+        }
         mainViewLevel = max(dataSource.resultsDepth - 1, 0)
         isTopMainLevel = mainViewLevel == 0
     }
