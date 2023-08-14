@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ImageRowView: View {
     var imageDataModel: ImageDataModel
-    var showOnLeft: Bool
+    @State var showOnLeft: Bool
 
     private var imageSize: CGSize {
         let minDimension = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
         return imageDataModel.scaledSize(width: minDimension * 0.5)
     }
+
+    @State private var toggleTimer: Timer?
 
     var body: some View {
         HStack {
@@ -34,6 +36,29 @@ struct ImageRowView: View {
             if showOnLeft {
                 Spacer()
             }
+        }
+        .onAppear {
+            repeatToggle()
+        }
+        .onDisappear {
+            clearTimer()
+        }
+        .animation(.interpolatingSpring(stiffness: 20, damping: 1), value: showOnLeft)
+    }
+
+    private func clearTimer() {
+        if let timer = toggleTimer {
+            timer.invalidate()
+            toggleTimer = nil
+        }
+    }
+
+    private func repeatToggle() {
+        clearTimer()
+
+        toggleTimer = Timer.scheduledTimer(withTimeInterval: Double.random(in: 3.5 ..< 4.5),
+                                           repeats: true) {_ in
+            showOnLeft.toggle()
         }
     }
 }
